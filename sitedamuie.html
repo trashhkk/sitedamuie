@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para o Amor da Minha Vida 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #ffecec);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 800px;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    .music-player {
+      background: #fff0f6;
+      border-radius: 20px;
+      padding: 20px;
+      margin: 30px 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .music-cover {
+      width: 100px;
+      height: 100px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .rotate {
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .music-details {
+      flex: 1;
+      text-align: left;
+    }
+
+    .music-info {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .music-controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .music-controls button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ff4081;
+      transition: transform 0.2s;
+    }
+
+    .music-controls button:hover {
+      transform: scale(1.2);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 5px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0;
+      background: #ff4081;
+    }
+
+    .time {
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .contador {
+      margin: 30px 0;
+    }
+
+    .tempo-box {
+      font-size: 1.3rem;
+      font-weight: bold;
+      background: #fff0f6;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .carrossel-container {
+      overflow: hidden;
+      margin: 30px 0;
+    }
+
+    .carrossel {
+      display: flex;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .carrossel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carrossel img {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .mensagem p {
+      font-size: 1.2rem;
+      background: #fff0f6;
+      padding: 20px;
+      border-radius: 15px;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .tempo-box {
+        font-size: 1.1rem;
+      }
+      .mensagem p {
+        font-size: 1rem;
+        padding: 15px;
+      }
+      .music-player {
+        flex-direction: column;
+        align-items: center;
+      }
+      .music-details {
+        text-align: center;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Feliz Dia dos Namorados, meu amor! 💘</h1>
+    <div class="music-player">
+      <img class="music-cover" id="cover" src="https://i.imgur.com/qrdnjyi.jpeg" alt="Capa da música">
+      <div class="music-details">
+        <div class="music-info">Saturno - BIN</div>
+        <div class="music-controls">
+          <button id="prevBtn">⏮️</button>
+          <button id="playPauseBtn">▶️</button>
+          <button id="nextBtn">⏭️</button>
+          <button id="likeBtn">❤️</button>
+        </div>
+        <div class="progress-container">
+          <div id="progress" class="progress"></div>
+        </div>
+        <div class="time">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+      <audio id="audio" preload="metadata">
+        <source src="https://raw.githubusercontent.com/trashhkk/musica-site/main/BIN-Saturno.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="contador">
+      <h2>Estamos juntos há:</h2>
+      <div id="tempo" class="tempo-box"></div>
+    </div>
+
+    <div class="carrossel-container">
+      <div class="carrossel">
+        <img src="https://i.imgur.com/a39YB43.jpeg" alt="Foto 1">
+        <img src="https://i.imgur.com/nUwxKkO.jpeg" alt="Foto 2">
+        <img src="https://i.imgur.com/9vUWABh.jpeg" alt="Foto 3">
+        <img src="https://i.imgur.com/iwZD0Ik.jpeg" alt="Foto 4">
+      </div>
+    </div>
+
+    <div class="mensagem">
+      <p> Desde o dia em que você entrou na minha vida, tudo ficou mais bonito, mais leve e cheio de amor. 💞<br><br>
+          Sua risada é a minha melodia favorita, seu abraço é meu lugar preferido e seu amor é meu maior presente.<br><br>
+          Eu nunca vou me cansar de dizer o quanto te amo e o quanto você é especial pra mim. Obrigado por ser minha namorada, minha parceira, minha melhor amiga. 💖<br><br>
+          Que este seja apenas um dos muitos Dias dos Namorados que vamos passar juntos! Te amo infinitamente! 🌟<br><br>
+           Bom como viu, essas frases acima foram todas feitas por IA, deixei elas porque são bonitas, e eu acho que não tenho tanta capacidade de falar tantas coisas tão bonitas assim RSRS, mas de uma coisa eu tenho total certeza
+        EU TE AMO PRA KARALHO e isso nunca irá mudar, nunca me arrependi de ter pedido tua mão em namoro naquele dia, mesmo ficando tão distante de tí por tanto tempo, desculpa por as vezes que fico tão estranho ctg do nada
+        é como já te falei, ficar muito tempo longe de ti, é mt dificil, mas nunca desistirei... Mas, estamos chegando em uma fase na nossa vida onde compartilharemos o mesmo lugar de morada HIHIHI, essa vai ser uma das melhores fases da minha vida
+        onde vou consquistar tudo ao lado da pessoal que mais amo nesse mundo, "tirando minha mãe e claro kk", mas pode ter certeza que depois dela, não existe ninguem nesse mundo que eu mais amo, quero te fazer muito feliz e dar aquilo que moh sempre sonhou
+        um alisonzin novo KKKKK, ou uma eduardazinha nova KKKK, não so esse como muitos e muitos que iremos conquistar ao longo da nossa jornada juntos, não sei como terminar esse pqn texto, mas mesmo no final não pararei te dizer que voce é o amor da minha vida.  EU TE AMO MTTTTT E SEMPRE VOU TE AMAR...
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progress = document.getElementById('progress');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationEl = document.getElementById('duration');
+    const cover = document.getElementById('cover');
+
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = '⏸️';
+        cover.classList.add('rotate');
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = '▶️';
+        cover.classList.remove('rotate');
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!isNaN(audio.duration)) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progress.style.width = percent + '%';
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        durationEl.textContent = formatTime(audio.duration);
+      }
+    });
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    }
+
+    function atualizarTempo() {
+      const inicio = new Date("2022-01-10T20:00:00");
+      const agora = new Date();
+      const diff = agora - inicio;
+
+      const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+      const meses = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44)) % 12;
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
+      const horas = Math.floor(diff / (1000 * 60 * 60)) % 24;
+      const minutos = Math.floor(diff / (1000 * 60)) % 60;
+      const segundos = Math.floor(diff / 1000) % 60;
+
+      document.getElementById('tempo').textContent =
+        `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+    }
+
+    setInterval(atualizarTempo, 1000);
+    atualizarTempo();
+  </script>
+</body>
+</html>
